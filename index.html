@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>С Днем Рождения, Шелия!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Pacifico', cursive;
+      background: linear-gradient(135deg, #78ABA8, #D1F3FF);
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .side {
+      display: none;
+    }
+
+    .main {
+      flex: 1;
+      position: relative;
+      overflow-y: auto;
+      padding: 120px 10px 80px;
+      min-height: 100vh;
+    }
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 10px;
+      z-index: 2;
+      pointer-events: none;
+      background: none;
+      text-align: center;
+    }
+
+    .header-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header-img {
+      height: 120px;
+      margin-bottom: 10px;
+      pointer-events: none;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      color: #FD980C;
+      text-shadow: 0 0 0;
+      line-height: 1.2;
+    }
+
+    .dolka {
+      position: absolute;
+      cursor: pointer;
+      z-index: 1;
+      transition: transform 0.3s ease;
+      max-width: 150px;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 10;
+      padding: 20px;
+    }
+
+    .overlay img {
+      width: 90%;
+      max-width: 500px;
+      transition: transform 极.5s ease;
+    }
+
+    .from {
+      color: #ff6f00;
+      font-size: 1.2rem;
+      margin-top: 15px;
+      text-shadow: 0 0 10px #ff9800;
+      text-align: center;
+    }
+
+    .nyam {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3rem;
+      color: #ff6f00;
+      text-shadow: 0 0 20px #ffeb3b, 0 0 30px #ff9800;
+      display: none;
+      z-index: 12;
+      animation: pulse 0.8s infinite alternate;
+    }
+
+    .restart-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #ff9800;
+      color: white;
+      font-family: 'Pacifico', cursive;
+      font-size: 1rem;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 20px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
+      z-index: 15;
+    }
+
+    .restart-btn:hover {
+      background-color: #fb8c00;
+    }
+
+    @keyframes eat {
+      0% { transform: scale(1) rotate(0deg); opacity: 1; }
+      50% { transform: scale(1.3) rotate(20deg); opacity: 0.7; }
+      100% { transform: scale(0) rotate(45deg); opacity: 0; }
+    }
+    
+    @keyframes pulse {
+      0% { transform: translate(-50%, -50%) scale(1); }
+      100% { transform: translate(-50%, -50%) scale(1.2); }
+    }
+
+    .eat-animation {
+      animation: eat 1s forwards;
+    }
+
+    @media (min-width: 768px) {
+      body {
+        flex-direction: row;
+      }
+      
+      /* УВЕЛИЧЕННЫЕ БОКОВЫЕ ЛИНИИ */
+      .side {
+        display: block;
+        width: 10vw; /* Увеличение с 10vw */
+        min-width: 80px; /* Увеличение со 100px */
+        max-width: 300px; /* Увеличение с 250px */
+        background-color: #FFCC70;
+        height: 100vh;
+      }
+      
+      .header {
+        flex-direction: row;
+        padding: 10px 40px;
+      }
+      
+      .header-content {
+        flex-direction: row;
+      }
+      
+      .header-img {
+        height: 200px;
+        margin-right: 15px;
+        margin-bottom: 0;
+      }
+      
+      h1 {
+        font-size: 3rem;
+      }
+      
+      .dolka {
+        max-width: 200px;
+      }
+      
+      .from {
+        font-size: 1.5rem;
+      }
+      
+      .nyam {
+        font-size: 2rem;
+      }
+      
+      /* УМЕНЬШЕННЫЙ ОТСТУП СВЕРХУ */
+      .main {
+        padding-top: 120px; /* Было 160px */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="side"></div>
+  <div class="main">
+    <div class="header">
+      <div class="header-content">
+        <img class="header-img" src="https://radika1.link/2025/07/22/zag9cf4cf6760abf0a7.png" alt="подарок" />
+        <h1>С Днем Рождения, Шелия!</h1>
+      </div>
+    </div>
+
+    <div class="overlay" id="overlay">
+      <img id="bigDolka" src="" alt="dolka" />
+      <div class="from" id="fromText"></div>
+      <div class="nyam" id="nyamText">Ням-ням!</div>
+    </div>
+    
+    <!-- Контейнер для долек -->
+    <div id="dolkisContainer" style="position: relative; height: 100%;"></div>
+
+    <button class="restart-btn" onclick="restart()"> Еще раз? 🍊  </button>
+  </div>
+  <div class="side"></div>
+
+  <script>
+  const dolkaData = [
+    {
+      src: 'https://radika1.link/2025/07/22/Adeline-Delhi-Scafere16be26d17cafe77.png',
+      from: 'Adeline Delhi-Scafere'
+    },
+    {
+      src: 'https://radika1.link/2025/07/22/Evyline-McFie4dcfd945c1308008.png',
+      from: 'Evyline McFie'
+    },
+    {
+      src: 'https://radika1.link/2025/07/22/Gugo-Helwellf367ef7f9a3ff92c.png',
+      from: 'Gugo Helwell'
+    },
+    {
+      src: 'https://radika1.link/2025/07/22/ARIADNA-FROSTab59b4c89f0dcfab.png',
+      from: 'Ариадна Фрост'
+    },
+    {
+      src: 'https://radika1.link/2025/07/22/BLEIK83ed6e681a84583f.png',
+      from: 'Блейк Эллингтон'
+    },
+    {
+      src: 'https://radika1.link/2025/07极/22/GREIS-DAIMOND-DE-KURc386b151ec6af016.png',
+      from: 'Grace Diamond-de-Kur'
+    },
+    {
+      src: 'https://radika1.link/2025/07/22/DZARED-KRINc820f04503fd3546.png',
+      from: 'Джаред Крин'
+    },
+    {
+      src: 'https://radika1.link/2025/07/22/DZULETTA-KELVELL-DE-KURbfc718f1aa513aaf.png',
+      from: 'Julietta Helwell-de-Kur'
+    },
+    {
+      src: 'https://radika1.link/2025/07/22/DINA-LIef507ab16bb9fdf8.png',
+      from: 'Dina Lee'
+    },
+    {
+      src: 'https://radika1.link/2025/07/22/KAMILKA-KOPILKAc2b5fbcff880de85.png',
+      from: 'Камилка Копилка'
+    },
+    {
+      src: 'https://radika1.link/2025/07/22/KATALINA234755877c432a52.png',
+      from: 'Каталина Вульф'
+    },
+    {
+      src: 'https://radika1.link/2025/07/22/LASS6f61b24bf6672366.png',
+      from: 'Ласс Ранйяр'
+    },
+    {
+      src: 'https://radika1.link/2025/07/22/LEON0aa3e48b3f601c0b.png',
+      from: 'Леон Морелло'
+    },
+    {
+      src: 'https://radika1.link/2025/07/22/MARI-RAIMONbdf90307fb2921a8.png',
+      from: 'Мари Раймон'
+    },
+    {
+      src: 'https://radika1.link/2025/07/22/MARIN9730d1370bcbd504.png',
+      from: 'Marin Seafour'
+    },
+    {
+      src: 'https://radika1.link/2025/07/22/MIZUKI-KIROMI0262eeb1d5f5cf38.png',
+      from: 'Мизуки Хироми'
+    },
+    {
+      src: 'https://radika1.link/2025/07/22/ROGNEDA-KOLMGREN89547bc8e2b08f43.png',
+      from: 'Рогнеда Хольмгрен'
+    },
+    {
+      src: 'https://radika1.link/2025/07/22/UILL-ROLAND17058218121ae612.png',
+      from: 'Уилл Роланд'
+    },
+    {
+      src: 'https://radika1.link/2025/07/22/KATTORI-RAITO2660c5e87c3db924.png',
+      from: 'Хаттори Райто'
+    },
+    {
+      src: 'https://radika1.link/2025/07/22/KELENA-KEINb389623dffed99b3.png',
+      from: 'Хелена Кейн'
+    },
+    {
+      src: 'https://radika1.link/2025/07/22/SUGA-RENN14cd6b15c9bb36d9.png',
+      from: 'Шуга Ренн'
+    },
+    {
+      src: 'https://radika1.link/2025/07/22/ENNI-EREKSONc03877719aec50e5.png',
+      from: 'Энни Эриксон'
+    },
+    {
+      src: 'https://radika1.link/2025/07/22/YKY9be79aa135704b15.png',
+      from: 'Яхья Фатхи'
+    }
+  ];
+
+    const overlay = document.getElementById('overlay');
+    const bigDolka = document.getElementById('bigDolka');
+    const fromText = document.getElementById('fromText');
+    const nyamText = document.getElementById('nyamText');
+    const dolkisContainer = document.getElementById('dolkisContainer');
+
+    let activeDolka = null;
+    let allDolkis = [];
+    let isEating = false;
+
+    function isOverlapping(x, y, size, others) {
+      const minDistance = size * 0.1;
+      
+      for (const other of others) {
+        const ox = parseFloat(other.style.left);
+        const oy = parseFloat(other.style.top);
+        const os = parseFloat(other.style.width);
+        
+        const horizontalOverlap = Math.abs(x - ox) * 2 < (size + os);
+        const verticalOverlap = Math.abs(y - oy) * 2 < (size + os);
+        
+        if (horizontalOverlap && verticalOverlap) return true;
+      }
+      return false;
+    }
+
+    function createDolkis() {
+      dolkisContainer.innerHTML = '';
+      allDolkis = [];
+      
+      const bounds = dolkisContainer.getBoundingClientRect();
+      const isMobile = window.innerWidth < 768;
+      
+      const header = document.querySelector('.header');
+      const headerHeight = header ? header.offsetHeight : 140;
+      
+      // УМЕНЬШЕННЫЙ ОТСТУП СВЕРХУ ДЛЯ ДОЛЕК
+      const topLimit = headerHeight * 0.7; // 70% от высоты заголовка
+      const bottomLimit = 100;
+      const padding = 10;
+      const availableHeight = bounds.height - topLimit - bottomLimit;
+      
+      if (availableHeight < 50) return;
+
+      dolkaData.forEach((item, index) => {
+        const img = document.createElement('img');
+        img.src = item.src;
+        img.className = 'dolka';
+        img.dataset.from = item.from;
+        img.style.zIndex = '1';
+
+        let size, x, y;
+        let attempts = 0;
+        const maxAttempts = 200;
+
+        size = Math.floor(Math.random() * (isMobile ? 60 : 80)) + (isMobile ? 60 : 120);
+        
+        if (size > availableHeight * 0.8) {
+          size = Math.floor(availableHeight * 0.8);
+        }
+
+        do {
+          x = padding + Math.random() * (bounds.width - padding * 2 - size);
+          // Разрешаем долькам быть ближе к заголовку
+          y = topLimit + Math.random() * Math.max(1, (bounds.height - topLimit - bottomLimit - size));
+          
+          attempts++;
+          if (attempts > maxAttempts) {
+            y = topLimit + index * 10;
+            break;
+          }
+        } while (isOverlapping(x, y, size, allDolkis));
+        
+        img.style.width = `${size}px`;
+        img.style.height = 'auto';
+        img.style.position = 'absolute';
+        img.style.left = `${x}px`;
+        img.style.top = `${y}px`;
+
+        img.addEventListener('click', () => {
+          if (isEating) return;
+          activeDolka = img;
+          bigDolka.src = item.src;
+          bigDolka.style.opacity = '1';
+          bigDolka.style.transform = 'none';
+          fromText.textContent = item.from;
+          overlay.style.display = 'flex';
+          nyamText.style.display = 'none';
+          bigDolka.style.display = 'block';
+          fromText.style.display = 'block';
+        });
+
+        dolkisContainer.appendChild(img);
+        allDolkis.push(img);
+      });
+    }
+
+    function handleOverlayClick() {
+      if (activeDolka && !isEating) {
+        isEating = true;
+        fromText.style.display = 'none';
+        
+        bigDolka.classList.add('eat-animation');
+        
+        bigDolka.addEventListener('animationend', () => {
+          nyamText.style.display = 'block';
+          
+          setTimeout(() => {
+            overlay.style.display = 'none';
+            nyamText.style.display = 'none';
+            
+            if (activeDolka && activeDolka.parentNode) {
+              activeDolka.remove();
+            }
+            
+            allDolkis = allDolkis.filter(d => d !== activeDolka);
+            activeDolka = null;
+            isEating = false;
+            bigDolka.classList.remove('eat-animation');
+          }, 1000);
+        }, { once: true });
+      }
+    }
+
+    function restart() {
+      createDolkis();
+    }
+
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(restart, 200);
+    });
+
+    window.addEventListener('load', () => {
+      createDolkis();
+      overlay.addEventListener('click', handleOverlayClick);
+    });
+  </script>
+</body>
+</html>
